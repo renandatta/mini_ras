@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeliveryOrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VehicleController;
@@ -16,9 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.admin');
-})->middleware(['fitur_program']);
+Route::get('/', [DashboardController::class, 'index'])->name('/');
+Route::post('track_order', [DashboardController::class, 'track_order'])->name('track_order');
 
 Route::prefix('profiles')->group(function () {
     Route::get('/', [ProfileController::class, 'index'])->name('profiles');
