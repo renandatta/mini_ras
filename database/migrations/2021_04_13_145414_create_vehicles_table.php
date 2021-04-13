@@ -15,12 +15,12 @@ class CreateVehiclesTable extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('profile_id')->nullable();
             $table->string('code');
             $table->string('name');
             $table->string('tracking_url')->nullable();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('profile_id')->references('id')->on('profiles');
         });
     }
 

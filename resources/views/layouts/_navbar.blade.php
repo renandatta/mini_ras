@@ -17,20 +17,20 @@ $sub_menu_active = function($route) {
                 @if($fitur->url != '#')
                     <li class="nav-item {{ $menu_active($fitur->url) }}">
                         <a href="{{ has_route($fitur->url) }}" class="nav-link">
-                            <span class="link-title">{{ $fitur->nama }}</span>
+                            <span class="link-title">{{ $fitur->name }}</span>
                         </a>
                     </li>
                 @else
-                    <li class="nav-item {{ ($parent_active ?? '') == $fitur->nama ? 'active' : '' }}">
+                    <li class="nav-item {{ ($parent_active ?? '') == $fitur->name ? 'active' : '' }}">
                         <a href="#" class="nav-link">
-                            <span class="menu-title">{{ $fitur->nama }}</span>
+                            <span class="menu-title">{{ $fitur->name }}</span>
                             <i class="link-arrow"></i>
                         </a>
                         <div class="submenu">
                             <ul class="submenu-item">
                                 @foreach($fitur->children as $sub)
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ has_route($sub->url) }}">{{ $sub->nama }}</a>
+                                    <a class="nav-link" href="{{ has_route($sub->url) }}">{{ $sub->name }}</a>
                                 </li>
                                 @endforeach
                             </ul>

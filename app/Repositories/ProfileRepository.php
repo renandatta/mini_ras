@@ -15,11 +15,12 @@ class ProfileRepository
 
     public function search(Request $request)
     {
-        $profile = $this->profile;
+        $profiles = $this->profile
+            ->orderBy('name');
 
         $paginate = $request->input('paginate') ?? null;
-        if ($paginate != null) return $profile->paginate($paginate);
-        return $profile->get();
+        if ($paginate != null) return $profiles->paginate($paginate);
+        return $profiles->get();
     }
 
     public function find($value, $column = 'id')
@@ -40,5 +41,13 @@ class ProfileRepository
         $profile = $this->profile->find($id);
         if (!empty($profile)) $profile->delete();
         return $profile;
+    }
+
+    public function dropdown()
+    {
+        $result = array();
+        foreach ($this->profile->orderBy('name')->get() as $value)
+            $result[$value->id] = $value->name;
+        return $result;
     }
 }

@@ -15,7 +15,9 @@ class VehicleRepository
 
     public function search(Request $request)
     {
-        $vehicle = $this->vehicle;
+        $vehicle = $this->vehicle
+            ->with(['profile'])
+            ->orderBy('code');
 
         $profile_id = $request->input('profile_id') ?? '';
         if ($profile_id != '') $vehicle = $vehicle->where('profile_id', $profile_id);
@@ -43,5 +45,13 @@ class VehicleRepository
         $vehicle = $this->vehicle->find($id);
         if (!empty($vehicle)) $vehicle->delete();
         return $vehicle;
+    }
+
+    public function dropdown()
+    {
+        $result = array();
+        foreach ($this->vehicle->orderBy('code')->get() as $value)
+            $result[$value->id] = $value->name;
+        return $result;
     }
 }

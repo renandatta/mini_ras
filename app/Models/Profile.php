@@ -15,7 +15,7 @@ class Profile extends Model
         'address'
     ];
 
-    public function setNameAttributes($value)
+    public function setNameAttribute($value)
     {
         $this->attributes['name'] = $value;
         $this->attributes['slug'] = Str::slug($value);

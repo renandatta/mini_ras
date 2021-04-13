@@ -61,7 +61,7 @@
 .horizontal-menu .bottom-navbar .page-navigation > .nav-item.active > .nav-link:before {
     bottom: 4px;
     height: 4px;
-    background-color: #81d4fa;
+    background-color: #000;
 }
 @media (min-width: 768px) {
     .horizontal-menu .bottom-navbar .page-navigation > .nav-item:not(.mega-menu) .submenu {
