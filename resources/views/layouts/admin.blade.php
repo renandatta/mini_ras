@@ -17,6 +17,7 @@
                                 <div class="dropdown-menu" aria-labelledby="appsDropdown">
                                     <div class="dropdown-body my-2">
                                         <div class="row d-flex align-items-center apps mx-auto justify-content-center">
+                                            @php($list_modul = $list_modul ?? [])
                                             @foreach($list_modul as $modul)
                                                 <div class="col-md-4 text-center">
                                                     <a href="{{ has_route($modul->url) }}">
@@ -34,10 +35,10 @@
                                     <img src="{{ asset('images/user.png') }}" alt="profile">
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="profileDropdown">
-                                    @php($user = \Illuminate\Support\Facades\Auth::user())
+                                    @php($user = \Illuminate\Support\Facades\Auth::user() ?? [])
                                     <div class="dropdown-header d-flex flex-column align-items-center">
                                         <div class="info text-center">
-                                            <p class="name font-weight-bold mb-0">{{ $user->nama }}</p>
+                                            <p class="name font-weight-bold mb-0">{{ $user->nama ?? 'Nama User' }}</p>
                                             <p class="email text-muted mb-3">{{ $user->user_level->nama ?? '' }}</p>
                                         </div>
                                     </div>
@@ -50,7 +51,7 @@
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a href="{{ route('logout') }}" class="nav-link">
+                                                <a href="{{ has_route('logout') }}" class="nav-link">
                                                     <i data-feather="log-out"></i>
                                                     <span>Log Out</span>
                                                 </a>

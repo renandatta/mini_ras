@@ -1,0 +1,94 @@
+.btn, .fc .fc-button, .swal2-modal .swal2-actions button, .wizard>.actions .disabled a, .wizard>.actions a, .wizard>.actions a:hover {
+    padding: .5rem 1rem;
+}
+
+.vertical-middle {
+    vertical-align: middle!important;
+}
+
+.table td {
+    white-space: normal;
+    vertical-align: top;
+}
+
+.table th {
+    vertical-align: bottom;
+}
+
+.dropify-wrapper .dropify-message span.file-icon:before {
+    content: none;
+}
+
+.select2-container--default .select2-selection--single {
+    height: calc(1.5em + .75rem + 2px);
+}
+
+.btn-col {
+    height: calc(1.5em + .75rem + 2px) !important;
+}
+.select2-container {
+    width: 100%;
+}
+.horizontal-menu .bottom-navbar .page-navigation {
+    justify-content: left;
+}
+.horizontal-menu .navbar {
+    height: 50px;
+    border-bottom: 0;
+    background-color: #81d4fa;
+}
+.page-wrapper .page-content {
+    padding: 1rem 0;
+}
+.grid-margin {
+    margin-bottom: 1rem;
+}
+.horizontal-menu .navbar .navbar-content .navbar-nav .nav-item.dropdown .dropdown-menu {
+    max-width: none;
+}
+.horizontal-menu .navbar .navbar-content .navbar-nav .nav-item.nav-apps .dropdown-menu .dropdown-body, .horizontal-menu .navbar .navbar-content .navbar-nav .nav-item.nav-notifications .dropdown-menu .dropdown-body, .horizontal-menu .navbar .navbar-content .navbar-nav .nav-item.nav-messages .dropdown-menu .dropdown-body {
+    max-height: none;
+    min-width: 320px;
+}
+.horizontal-menu .navbar .navbar-content .navbar-nav .nav-item.nav-apps .dropdown-menu .dropdown-body .apps a {
+    padding: 10px 0;
+    width: auto;
+    height: auto;
+    display: block;
+}
+.horizontal-menu .bottom-navbar .page-navigation > .nav-item > .nav-link {
+    padding: 22px 10px!important;
+}
+.horizontal-menu .bottom-navbar .page-navigation > .nav-item.active > .nav-link:before {
+    bottom: 4px;
+    height: 4px;
+    background-color: #81d4fa;
+}
+@media (min-width: 768px) {
+    .horizontal-menu .bottom-navbar .page-navigation > .nav-item:not(.mega-menu) .submenu {
+        top: 54px;
+    }
+    .horizontal-menu .bottom-navbar {
+        height: 50px;
+    }
+}
+@media (max-width: 991.98px) {
+    .horizontal-menu .bottom-navbar {
+        height: auto;
+    }
+    .horizontal-menu .bottom-navbar .page-navigation > .nav-item.active > .nav-link:before {
+        display: none;
+    }
+    .horizontal-menu .bottom-navbar .page-navigation > .nav-item:not(.mega-menu) .submenu {
+        top: 0;
+    }
+    .horizontal-menu .bottom-navbar .page-navigation > .nav-item > .nav-link {
+        padding: 15px 10px!important;
+    }
+}
+.autocomplete-items {
+    margin: -1rem 0.75rem 0;
+}
+.autocomplete-items div {
+    padding: 5px 15px;
+}
