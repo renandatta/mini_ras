@@ -27,7 +27,7 @@
                         <x-input name="tracking_url" :value="$vehicle->tracking_url ?? ''" />
                     </x-form-group>
                     <button class="btn btn-primary" type="submit">Save</button>
-                    <button class="btn btn-light ml-2" type="button" onclick="init_vehicle()">Cancelp</button>
+                    <button class="btn btn-light ml-2" type="button" onclick="init_vehicle()">Cancel</button>
                     @if(!empty($vehicle))
                         <button class="btn btn-danger float-right" type="button" onclick="delete_vehicle({{ $vehicle->id }})">Hapus</button>
                     @endif

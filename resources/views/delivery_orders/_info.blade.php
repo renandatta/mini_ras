@@ -29,7 +29,7 @@
                         <x-textarea name="description" :value="$delivery_order->description ?? ''" />
                     </x-form-group>
                     <button class="btn btn-primary" type="submit">Save</button>
-                    <button class="btn btn-light ml-2" type="button" onclick="init_delivery_order()">Cancelp</button>
+                    <button class="btn btn-light ml-2" type="button" onclick="init_delivery_order()">Cancel</button>
                     @if(!empty($delivery_order))
                         <button class="btn btn-danger float-right" type="button" onclick="delete_delivery_order({{ $delivery_order->id }})">Hapus</button>
                     @endif

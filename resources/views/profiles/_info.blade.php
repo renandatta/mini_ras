@@ -18,7 +18,7 @@
                         <x-input name="address" :value="$profile->address ?? ''" />
                     </x-form-group>
                     <button class="btn btn-primary" type="submit">Save</button>
-                    <button class="btn btn-light ml-2" type="button" onclick="init_profile()">Cancelp</button>
+                    <button class="btn btn-light ml-2" type="button" onclick="init_profile()">Cancel</button>
                     @if(!empty($profile))
                         <button class="btn btn-danger float-right" type="button" onclick="delete_profile({{ $profile->id }})">Hapus</button>
                     @endif
