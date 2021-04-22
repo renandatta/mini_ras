@@ -14,10 +14,11 @@ class DashboardController extends Controller
         $this->deliveryOrder = $deliveryOrder;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         session(['menu_active' => '/']);
-        return view('dashboard.index');
+        $no_order = $request->input('no_order');
+        return view('dashboard.index', compact('no_order'));
     }
 
     public function track_order(Request $request)

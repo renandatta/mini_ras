@@ -30,8 +30,13 @@
         let $vehicle_info = $('#vehicle_info'),
             $vehicle_table = $('#vehicle_table');
 
-        search_vehicle = () => {
-            $.post("{{ route('vehicles.search') }}", {_token, paginate}, (result) => {
+        let selected_page = 1;
+        search_vehicle = (page = 1) => {
+            if (page.toString() === '+1') selected_page++;
+            else if(page.toString() === '-1') selected_page--;
+            else selected_page = page
+
+            $.post("{{ route('vehicles.search') }}?page=" + selected_page , {_token, paginate}, (result) => {
                 $vehicle_table.html(result);
             }).fail((xhr) => {
                 $vehicle_table.html(xhr.responseText);

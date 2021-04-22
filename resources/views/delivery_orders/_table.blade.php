@@ -16,7 +16,7 @@
             <tr>
                 <td>{{ $no++ }}</td>
                 <td class="text-nowrap">{{ $value->vehicle->profile->name ?? '' }}</td>
-                <td class="text-nowrap">{{ $value->vehicle->code ?? '' }} ({{ $value->vehicle->name }})</td>
+                <td class="text-nowrap">{{ $value->vehicle->name_complete ?? '' }}</td>
                 <td class="text-nowrap">{{ $value->no_order }}</td>
                 <td class="text-nowrap">{{ format_date($value->date) }}</td>
                 <td class="text-nowrap">{{ format_date($value->arrived_date) }}</td>

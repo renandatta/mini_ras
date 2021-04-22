@@ -51,7 +51,7 @@ class VehicleRepository
     {
         $result = array();
         foreach ($this->vehicle->orderBy('code')->get() as $value)
-            $result[$value->id] = $value->name;
+            $result[$value->id] = $value->name_complete;
         return $result;
     }
 }

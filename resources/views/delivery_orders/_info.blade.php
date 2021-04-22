@@ -23,7 +23,7 @@
                         <x-input name="date" class="datepicker" :value="$delivery_order->date ?? date('d-m-Y')" />
                     </x-form-group>
                     <x-form-group id="arrived_date" caption="Arrived Date">
-                        <x-input name="arrived_date" class="arrived_datepicker" :value="$delivery_order->arrived_date ?? ''" />
+                        <x-input name="arrived_date" class="datepicker" :value="$delivery_order->arrived_date ?? ''" />
                     </x-form-group>
                     <x-form-group id="description" caption="Description">
                         <x-textarea name="description" :value="$delivery_order->description ?? ''" />

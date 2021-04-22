@@ -30,8 +30,13 @@
         let $delivery_order_info = $('#delivery_order_info'),
             $delivery_order_table = $('#delivery_order_table');
 
-        search_delivery_order = () => {
-            $.post("{{ route('delivery_orders.search') }}", {_token, paginate}, (result) => {
+        let selected_page = 1;
+        search_delivery_order = (page = 1) => {
+            if (page.toString() === '+1') selected_page++;
+            else if(page.toString() === '-1') selected_page--;
+            else selected_page = page
+
+            $.post("{{ route('delivery_orders.search') }}?page=" + selected_page, {_token, paginate}, (result) => {
                 $delivery_order_table.html(result);
             }).fail((xhr) => {
                 $delivery_order_table.html(xhr.responseText);

@@ -2,9 +2,9 @@
 
 @section('body')
     <div class="main-wrapper">
-        <div class="horizontal-menu">
-            <nav class="navbar top-navbar">
-                <div class="container">
+{{--        <div class="horizontal-menu">--}}
+{{--            <nav class="navbar top-navbar">--}}
+{{--                <div class="container-fluid">--}}
 {{--                    <div class="navbar-content">--}}
 {{--                        <a href="#" class="navbar-brand">--}}
 {{--                            <img src="{{ asset('images/logo.png') }}" alt="" class="img-fluid" style="height:40px;">--}}
@@ -65,12 +65,12 @@
 {{--                            <i data-feather="menu"></i>--}}
 {{--                        </button>--}}
 {{--                    </div>--}}
-                </div>
-            </nav>
+{{--                </div>--}}
+{{--            </nav>--}}
 {{--            @include('layouts._navbar')--}}
-        </div>
-        <div class="page-wrapper">
-            <div class="page-content">
+{{--        </div>--}}
+        <div class="page-wrapper mt-4">
+            <div class="container-fluid">
                 @yield('content')
             </div>
             <footer class="footer d-flex flex-column flex-md-row align-items-center justify-content-between">

@@ -30,7 +30,12 @@
         let $profile_info = $('#profile_info'),
             $profile_table = $('#profile_table');
 
-        search_profile = () => {
+        let selected_page = 1;
+        search_profile = (page = 1) => {
+            if (page.toString() === '+1') selected_page++;
+            else if(page.toString() === '-1') selected_page--;
+            else selected_page = page
+
             $.post("{{ route('profiles.search') }}", {_token, paginate}, (result) => {
                 $profile_table.html(result);
             }).fail((xhr) => {

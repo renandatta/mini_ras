@@ -13,12 +13,12 @@
     <div class="card">
         <div class="card-body">
             <x-alert type="error" id="alert_tracking" />
-            <form id="tracking_form">
+            <form id="tracking_form" @if($no_order != '') style="display: none;" @endif>
                 @csrf
                 <div class="row">
                     <div class="col-md-10">
                         <x-form-group id="no_order" caption="No.Order">
-                            <x-input name="no_order" :value="$delivery_order->no_order ?? ''" />
+                            <x-input name="no_order" :value="$no_order ?? ''" />
                         </x-form-group>
                     </div>
                     <div class="col-md-2">
@@ -62,5 +62,9 @@
                 }
             });
         });
+
+        @if($no_order != '')
+            $tracking_form.submit();
+        @endif
     </script>
 @endpush
