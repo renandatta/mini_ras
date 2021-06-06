@@ -1,39 +1,38 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Transporter;
 
-use App\Http\Requests\IdRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\OnlyIdRequest;
 use App\Http\Requests\VehicleSaveRequest;
-use App\Repositories\ProfileRepository;
 use App\Repositories\VehicleRepository;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller
 {
     protected $vehicle;
-    public function __construct(VehicleRepository $vehicle, ProfileRepository $profile)
+    public function __construct(VehicleRepository $vehicle)
     {
-        $this->middleware(['fitur_program']);
+        $this->middleware(['auth', 'feature', 'profile']);
         $this->vehicle = $vehicle;
-        view()->share(['profiles' => $profile->dropdown()]);
     }
 
     public function index()
     {
-        session(['menu_active' => 'vehicles']);
-        return view('vehicles.index');
+        session(['menu_active' => 'transporter.vehicles']);
+        return view('transporter.vehicles.index');
     }
 
     public function search(Request $request)
     {
         $vehicles = $this->vehicle->search($request);
-        return view('vehicles._table', compact('vehicles'));
+        return view('transporter.vehicles._table', compact('vehicles'));
     }
 
     public function info(Request $request)
     {
         $vehicle = $this->vehicle->find($request->input('id'));
-        return view('vehicles._info', compact('vehicle'));
+        return view('transporter.vehicles._info', compact('vehicle'));
     }
 
     public function save(VehicleSaveRequest $request)
@@ -41,7 +40,7 @@ class VehicleController extends Controller
         return $this->vehicle->save($request);
     }
 
-    public function delete(IdRequest $request)
+    public function delete(OnlyIdRequest $request)
     {
         return $this->vehicle->delete($request->input('id'));
     }

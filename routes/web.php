@@ -2,10 +2,11 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeliveryOrderController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\VehicleController;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,13 +19,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('assets/{folder}/{filename}', function ($folder,$filename){
+    $path = storage_path('app/' . $folder . '/' . $filename);
+    if (!File::exists($path)) {
+        abort(404);
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $response = Response::make($file);
+    $response->header("Content-Type", $type);
+    return $response;
+});
+
 Route::get('/', [DashboardController::class, 'index'])->name('/');
 Route::post('track_order', [DashboardController::class, 'track_order'])->name('track_order');
 
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('logout', function () {
+    Auth::logout();
+    return redirect()->route('/');
+})->name('logout');
 
 Route::prefix('admin')->name('admin')->group(function () {
+
+    Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index']);
 
     Route::prefix('user_roles')->name('.user_roles')->group(function () {
         Route::get('/', [App\Http\Controllers\Admin\UserRoleController::class, 'index']);
@@ -70,12 +88,34 @@ Route::prefix('admin')->name('admin')->group(function () {
 
 });
 
-Route::prefix('vehicles')->group(function () {
-    Route::get('/', [VehicleController::class, 'index'])->name('vehicles');
-    Route::post('search', [VehicleController::class, 'search'])->name('vehicles.search');
-    Route::post('info', [VehicleController::class, 'info'])->name('vehicles.info');
-    Route::post('save', [VehicleController::class, 'save'])->name('vehicles.save');
-    Route::post('delete', [VehicleController::class, 'delete'])->name('vehicles.delete');
+Route::prefix('transporter')->name('transporter')->group(function () {
+
+    Route::get('/', [App\Http\Controllers\Transporter\HomeController::class, 'index']);
+
+    Route::prefix('vehicles')->name('.vehicles')->group(function () {
+        Route::get('/', [App\Http\Controllers\Transporter\VehicleController::class, 'index']);
+        Route::post('search', [App\Http\Controllers\Transporter\VehicleController::class, 'search'])->name('.search');
+        Route::post('info', [App\Http\Controllers\Transporter\VehicleController::class, 'info'])->name('.info');
+        Route::post('save', [App\Http\Controllers\Transporter\VehicleController::class, 'save'])->name('.save');
+        Route::post('delete', [App\Http\Controllers\Transporter\VehicleController::class, 'delete'])->name('.delete');
+    });
+
+    Route::prefix('locations')->name('.locations')->group(function () {
+        Route::get('/', [App\Http\Controllers\Transporter\LocationController::class, 'index']);
+        Route::post('search', [App\Http\Controllers\Transporter\LocationController::class, 'search'])->name('.search');
+        Route::post('info', [App\Http\Controllers\Transporter\LocationController::class, 'info'])->name('.info');
+        Route::post('save', [App\Http\Controllers\Transporter\LocationController::class, 'save'])->name('.save');
+        Route::post('delete', [App\Http\Controllers\Transporter\LocationController::class, 'delete'])->name('.delete');
+    });
+
+    Route::prefix('drivers')->name('.drivers')->group(function () {
+        Route::get('/', [App\Http\Controllers\Transporter\DriverController::class, 'index']);
+        Route::post('search', [App\Http\Controllers\Transporter\DriverController::class, 'search'])->name('.search');
+        Route::post('info', [App\Http\Controllers\Transporter\DriverController::class, 'info'])->name('.info');
+        Route::post('save', [App\Http\Controllers\Transporter\DriverController::class, 'save'])->name('.save');
+        Route::post('delete', [App\Http\Controllers\Transporter\DriverController::class, 'delete'])->name('.delete');
+    });
+
 });
 
 Route::prefix('delivery_orders')->group(function () {

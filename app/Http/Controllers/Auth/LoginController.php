@@ -27,6 +27,12 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    protected function redirectTo()
+    {
+        $user = auth()->user();
+        session(['profile_id' => $user->profile_id]);
+        return $user->user_role->feature->url ?? 'home';
+    }
 
     /**
      * Create a new controller instance.

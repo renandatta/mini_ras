@@ -64,5 +64,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'fitur_program' => \App\Http\Middleware\FiturProgramMiddleware::class,
         'feature' => \App\Http\Middleware\FeatureMiddleware::class,
+        'profile' => \App\Http\Middleware\ProfileMiddleware::class,
     ];
 }
