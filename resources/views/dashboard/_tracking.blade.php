@@ -8,6 +8,6 @@
 <iframe
     src="{{ $delivery_order->vehicle->tracking_url }}"
     class="w-100 mt-3"
-    style="width: 100%;height: 400px"
+    style="width: 100%;height: 65vh;"
     frameborder="0"
 ></iframe>

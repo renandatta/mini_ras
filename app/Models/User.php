@@ -12,6 +12,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'password',
+        'user_role_id',
+        'profile_id'
     ];
 
     protected $hidden = [
@@ -22,4 +25,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function user_role()
+    {
+        return $this->belongsTo(UserRole::class);
+    }
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class);
+    }
 }

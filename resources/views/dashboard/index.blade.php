@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="card">
-        <div class="card-body">
+        <div class="card-body" style="height: 85vh;">
             <x-alert type="error" id="alert_tracking" />
             <form id="tracking_form" @if($no_order != '') style="display: none;" @endif>
                 @csrf

@@ -18,6 +18,7 @@ class FiturProgramMiddleware
     {
         $fitur_program = array(
             ['url' => '/', 'name' => 'Dashboard'],
+            ['url' => 'admin.features', 'name' => 'Feature'],
             ['url' => 'profiles', 'name' => 'Profile'],
             ['url' => 'vehicles', 'name' => 'Vehicle'],
             ['url' => 'delivery_orders', 'name' => 'Delivery Order'],
