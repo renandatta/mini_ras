@@ -52,6 +52,16 @@
             $info_profile.html('');
         }
 
+        let user_profile = (id) => {
+            $.post("{{ route('admin.profiles.users') }}", {
+                _token, id
+            }, (result) => {
+                $info_profile.html(result);
+            }).fail((xhr) => {
+                $info_profile.html(xhr.responseText);
+            });
+        }
+
         init_form_element();
         init_profile();
     </script>

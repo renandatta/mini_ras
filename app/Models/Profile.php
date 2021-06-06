@@ -20,4 +20,9 @@ class Profile extends Model
         $this->attributes['name'] = $value;
         $this->attributes['slug'] = Str::slug($value);
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

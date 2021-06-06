@@ -59,4 +59,11 @@ class UserRoleRepository extends Repository {
         return $result;
     }
 
+    public function dropdown_user()
+    {
+        $result = array();
+        foreach ($this->userRole->where('id', '<>', 1)->get() as $value) $result[$value->id] = $value->name;
+        return $result;
+    }
+
 }

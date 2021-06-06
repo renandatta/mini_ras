@@ -57,6 +57,15 @@ Route::prefix('admin')->name('admin')->group(function () {
         Route::post('info', [App\Http\Controllers\Admin\ProfileController::class, 'info'])->name('.info');
         Route::post('save', [App\Http\Controllers\Admin\ProfileController::class, 'save'])->name('.save');
         Route::post('delete', [App\Http\Controllers\Admin\ProfileController::class, 'delete'])->name('.delete');
+
+        Route::prefix('users')->name('.users')->group(function () {
+            Route::post('index', [App\Http\Controllers\Admin\ProfileUserController::class, 'index']);
+            Route::post('search', [App\Http\Controllers\Admin\ProfileUserController::class, 'search'])->name('.search');
+            Route::post('info', [App\Http\Controllers\Admin\ProfileUserController::class, 'info'])->name('.info');
+            Route::post('save', [App\Http\Controllers\Admin\ProfileUserController::class, 'save'])->name('.save');
+            Route::post('delete', [App\Http\Controllers\Admin\ProfileUserController::class, 'delete'])->name('.delete');
+        });
+
     });
 
 });

@@ -15,7 +15,11 @@ class UserRepository extends Repository {
 
     public function search(Request $request)
     {
-        $user = $this->user->with(['user_role']);
+        $user = $this->user->with(['user_role', 'profile']);
+        $user = $this->filter($request, $user, [
+            ['value' => 'user_role_id'],
+            ['value' => 'profile_id'],
+        ]);
         $paginate = $request->input('paginate') ?? null;
         if ($paginate != null) return $user->paginate($paginate);
         return $user->get();

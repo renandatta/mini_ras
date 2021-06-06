@@ -6,6 +6,7 @@
             <th>Name</th>
             <th>Phone</th>
             <th>Address</th>
+            <th width="5%" class="text-center">User</th>
             <th width="5%">Action</th>
         </tr>
         </thead>
@@ -20,6 +21,12 @@
                 <td class="text-nowrap">{{ $profile->name }}</td>
                 <td class="text-nowrap">{{ $profile->phone }}</td>
                 <td class="text-nowrap">{{ $profile->address }}</td>
+                <td class="py-0 vertical-middle text-center text-nowrap">
+                    <button
+                        class="btn btn-xs btn-icon-append btn-primary"
+                        onclick="user_profile({{ $profile->id }})"
+                    >{{ $profile->users->count() }} User</button>
+                </td>
                 <td class="py-0 vertical-middle text-right text-nowrap">
                     <button
                         class="btn btn-xs btn-icon-append btn-success"

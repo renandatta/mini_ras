@@ -15,7 +15,8 @@ class ProfileRepository extends Repository {
 
     public function search(Request $request)
     {
-        $profile = $this->profile;
+        $profile = $this->profile
+            ->with(['users']);
         $paginate = $request->input('paginate') ?? null;
         if ($paginate != null) return $profile->paginate($paginate);
         return $profile->get();

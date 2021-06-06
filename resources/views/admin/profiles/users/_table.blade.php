@@ -6,7 +6,6 @@
             <th>Name</th>
             <th>Email</th>
             <th>User Role</th>
-            <th>Profile</th>
             <th width="5%">Action</th>
         </tr>
         </thead>
@@ -21,7 +20,6 @@
                 <td class="text-nowrap">{{ $user->name }}</td>
                 <td class="text-nowrap">{{ $user->email }}</td>
                 <td class="text-nowrap">{{ $user->user_role->name }}</td>
-                <td class="text-nowrap">{{ $user->profile->name ?? '' }}</td>
                 <td class="py-0 vertical-middle text-right text-nowrap">
                     <button
                         class="btn btn-xs btn-icon-append btn-success"
@@ -30,6 +28,11 @@
                 </td>
             </tr>
         @endforeach
+        <tr>
+            <td class="p-1" colspan="5">
+                <button class="btn btn-block btn-primary btn-xs" onclick="info_user()">Add New User</button>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>
