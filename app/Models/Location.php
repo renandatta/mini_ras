@@ -10,9 +10,17 @@ class Location extends Model
         'profile_id',
         'name',
         'code',
-        'addess',
+        'address',
         'lat',
         'lng',
-        'description'
+        'description',
+        'city',
+        'province',
+        'customer_id'
     ];
+
+    public function getCoordinateAttribute()
+    {
+        return $this->lat . ', ' . $this->lng;
+    }
 }

@@ -122,4 +122,12 @@ class FeatureRepository extends Repository
         return $result;
     }
 
+    public function list_features_user()
+    {
+        $result = array();
+        $features = $this->feature->where('parent_code', '#')->where('code', '<>', '01')->get();
+        foreach ($features as $feature) $result[$feature->id] = $feature->name;
+        return $result;
+    }
+
 }

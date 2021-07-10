@@ -14,6 +14,9 @@ class Driver extends Model
         'phone',
         'photo',
         'tracking_url',
+        'no_license',
+        'license_code',
+        'date_expired_license',
     ];
 
     public function getPhotoFileAttribute()

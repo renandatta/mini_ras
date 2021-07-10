@@ -15,12 +15,12 @@
                                 </div>
                                 <div class="col-md-8 pl-md-0">
                                     <div class="auth-form-wrapper px-4 py-5">
-                                        <a href="#" class="noble-ui-logo d-block mb-2">12K<span>Putri</span></a>
+                                        <a href="#" class="noble-ui-logo d-block mb-2">ADA<span>DIMANA</span></a>
                                         <h5 class="text-muted font-weight-normal mb-4">Create new account.</h5>
-                                        @if ($errors->any())
+                                        @if($errors->any())
                                             <x-alert type="error" display="true">
                                                 <ul class="mb-0" style="margin-left: -20px">
-                                                    @foreach ($errors->all() as $error)
+                                                    @foreach($errors->all() as $error)
                                                         <li>{{ $error }}</li>
                                                     @endforeach
                                                 </ul>
@@ -28,14 +28,17 @@
                                         @endif
                                         <form class="forms-sample" action="{{ route('register') }}" method="post">
                                             @csrf
-                                            <x-form-group id="name" caption="Name">
-                                                <x-input name="name" caption="Name" />
+                                            <x-form-group caption="Name">
+                                                <x-input name="name" caption="Name" :value="old('name')" />
                                             </x-form-group>
-                                            <x-form-group id="email" caption="Email">
-                                                <x-input name="email" caption="Email" />
+                                            <x-form-group caption="Email">
+                                                <x-input name="email" caption="Email" :value="old('email')" />
                                             </x-form-group>
-                                            <x-form-group id="password" caption="Password">
+                                            <x-form-group caption="Password">
                                                 <x-input name="password" caption="Password" type="password" />
+                                            </x-form-group>
+                                            <x-form-group caption="Password">
+                                                <x-input name="password_confirmation" caption="Repeat Password" type="password" />
                                             </x-form-group>
                                             <div class="mt-3">
                                                 <button type="submit" class="btn btn-primary mr-2 mb-2 mb-md-0 text-white">Register</button>
@@ -53,3 +56,9 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        init_form_element();
+    </script>
+@endpush

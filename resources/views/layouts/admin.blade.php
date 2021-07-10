@@ -6,8 +6,9 @@
             <nav class="navbar top-navbar">
                 <div class="container">
                     <div class="navbar-content">
-                        <a href="#" class="navbar-brand">
-                            <img src="{{ asset('images/logo.png') }}" alt="" class="img-fluid" style="height:40px;">
+                        <a href="#" class="navbar-brand text-dark ml-2">
+                            {{ auth()->user()->user_role->name }}
+{{--                            <img src="{{ asset('images/logo.png') }}" alt="" class="img-fluid" style="height:40px;">--}}
                         </a>
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown nav-apps">
@@ -38,8 +39,8 @@
                                     @php($user = \Illuminate\Support\Facades\Auth::user() ?? [])
                                     <div class="dropdown-header d-flex flex-column align-items-center">
                                         <div class="info text-center">
-                                            <p class="name font-weight-bold mb-0">{{ $user->nama ?? 'Nama User' }}</p>
-                                            <p class="email text-muted mb-3">{{ $user->user_level->nama ?? '' }}</p>
+                                            <p class="name font-weight-bold mb-0">{{ $user->name ?? 'Nama User' }}</p>
+                                            <p class="email text-muted mb-3">{{ $user->user_role->name ?? '' }}</p>
                                         </div>
                                     </div>
                                     <div class="dropdown-body">

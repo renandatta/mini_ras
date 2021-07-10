@@ -24,7 +24,9 @@
                 <td class="text-nowrap">{{ $driver->phone }}</td>
                 <td class="text-nowrap">{{ $driver->address }}</td>
                 <td class="text-nowrap py-0 text-center">
-                    <img src="{{ asset('assets/' . $driver->photo) }}" alt="" class="img-fluid" style="height: 40px;">
+                    @if($driver->photo != '')
+                        <img src="{{ asset('assets/' . $driver->photo) }}" alt="" class="img-fluid" style="height: 40px;">
+                    @endif
                 </td>
                 <td class="py-0 vertical-middle text-right text-nowrap">
                     <button

@@ -17,6 +17,9 @@ class LocationRepository extends Repository {
     {
         $location = $this->location;
         $location = $this->filter($request, $location, [
+            ['value' => 'name']
+        ]);
+        $location = $this->filter($request, $location, [
             ['value' => 'profile_id']
         ]);
         $paginate = $request->input('paginate') ?? null;
@@ -52,6 +55,14 @@ class LocationRepository extends Repository {
         $location = $this->location->find($id);
         if (!empty($location)) $location->delete();
         return $location;
+    }
+
+    public function dropdown($profile_id)
+    {
+        $result = array();
+        foreach ($this->location->where('profile_id', $profile_id)->get() as $value)
+            $result[$value->id] = $value->name;
+        return $result;
     }
 
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Profile;
+use App\Models\UserRole;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -30,6 +32,12 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    protected function redirectTo()
+    {
+        $user = auth()->user();
+        session(['profile_id' => $user->profile_id]);
+        return $user->user_role->feature->url ?? 'home';
+    }
 
     /**
      * Create a new controller instance.
@@ -52,7 +60,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:4', 'confirmed'],
         ]);
     }
 
@@ -64,10 +72,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $profile = Profile::create([
+            'name' => $data['name']
+        ]);
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'user_role_id' => 5,
+            'profile_id' => $profile->id
         ]);
+        return $user;
+    }
+
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
     }
 }

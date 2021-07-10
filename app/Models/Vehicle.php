@@ -16,7 +16,11 @@ class Vehicle extends Model
         'profile_id',
         'code',
         'name',
-        'tracking_url'
+        'tracking_url',
+        'no_license',
+        'data_license_expired',
+        'no_registration',
+        'date_tax_expired',
     ];
 
     public function profile()

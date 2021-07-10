@@ -13,6 +13,15 @@
             <x-form-group caption="Phone">
                 <x-input name="phone" :value="$driver->phone ?? ''" />
             </x-form-group>
+            <x-form-group caption="No.License">
+                <x-input name="no_license" :value="$driver->no_license ?? ''" />
+            </x-form-group>
+            <x-form-group caption="License Code">
+                <x-input name="license_code" :value="$driver->license_code ?? ''" />
+            </x-form-group>
+            <x-form-group caption="Date Expired License">
+                <x-input name="date_expired_license" class="datepicker" :value="format_date($driver->date_expired_license ?? '')" />
+            </x-form-group>
             <x-form-group caption="Address">
                 <x-textarea name="address" :value="$driver->address ?? ''" />
             </x-form-group>

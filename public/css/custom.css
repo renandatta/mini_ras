@@ -27,7 +27,7 @@
     height: calc(1.5em + .75rem + 2px) !important;
 }
 .select2-container {
-    width: 100%;
+    width: 100%!important;
 }
 .horizontal-menu .bottom-navbar .page-navigation {
     justify-content: left;
@@ -93,4 +93,13 @@
 }
 .btn, .fc .fc-button, .swal2-modal .swal2-actions button, .wizard>.actions .disabled a, .wizard>.actions a, .wizard>.actions a:hover {
     height: calc(1.5em + 0.75rem + 2px);
+}
+/*.btn, .fc .fc-button, .swal2-modal .swal2-actions button, .wizard > .actions a, .wizard > .actions a:hover, .wizard > .actions .disabled a {*/
+/*    line-height: normal;*/
+/*}*/
+
+@media (min-width: 1200px) {
+    .container, .page-wrapper .page-content, .container-sm, .container-md, .container-lg, .container-xl {
+        max-width: 1300px;
+    }
 }

@@ -58,6 +58,7 @@
                 showMeridian: false,
                 showSeconds: true,
                 icons: { up: "mdi mdi-chevron-up", down: "mdi mdi-chevron-down" },
+                defaultTime: ''
             });
             $(".summernote").summernote({
                 height: 300,

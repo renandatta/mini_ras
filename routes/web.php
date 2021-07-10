@@ -1,23 +1,9 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DeliveryOrderController;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('assets/{folder}/{filename}', function ($folder,$filename){
     $path = storage_path('app/' . $folder . '/' . $filename);
@@ -31,8 +17,8 @@ Route::get('assets/{folder}/{filename}', function ($folder,$filename){
     return $response;
 });
 
-Route::get('/', [DashboardController::class, 'index'])->name('/');
-Route::post('track_order', [DashboardController::class, 'track_order'])->name('track_order');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('/');
+Route::get('track_order', [App\Http\Controllers\HomeController::class, 'track_order'])->name('track_order');
 
 Auth::routes();
 Route::get('logout', function () {
@@ -88,6 +74,25 @@ Route::prefix('admin')->name('admin')->group(function () {
 
 });
 
+Route::prefix('owner')->name('owner')->group(function () {
+
+    Route::get('/', [App\Http\Controllers\Owner\HomeController::class, 'index']);
+
+    Route::prefix('profile')->name('.profile')->group(function () {
+        Route::get('/', [App\Http\Controllers\Owner\ProfileController::class, 'index']);
+        Route::post('save', [App\Http\Controllers\Owner\ProfileController::class, 'save'])->name('.save');
+    });
+
+    Route::prefix('users')->name('.users')->group(function () {
+        Route::get('/', [App\Http\Controllers\Owner\UserController::class, 'index']);
+        Route::post('search', [App\Http\Controllers\Owner\UserController::class, 'search'])->name('.search');
+        Route::post('info', [App\Http\Controllers\Owner\UserController::class, 'info'])->name('.info');
+        Route::post('save', [App\Http\Controllers\Owner\UserController::class, 'save'])->name('.save');
+        Route::post('delete', [App\Http\Controllers\Owner\UserController::class, 'delete'])->name('.delete');
+    });
+
+});
+
 Route::prefix('transporter')->name('transporter')->group(function () {
 
     Route::get('/', [App\Http\Controllers\Transporter\HomeController::class, 'index']);
@@ -100,14 +105,6 @@ Route::prefix('transporter')->name('transporter')->group(function () {
         Route::post('delete', [App\Http\Controllers\Transporter\VehicleController::class, 'delete'])->name('.delete');
     });
 
-    Route::prefix('locations')->name('.locations')->group(function () {
-        Route::get('/', [App\Http\Controllers\Transporter\LocationController::class, 'index']);
-        Route::post('search', [App\Http\Controllers\Transporter\LocationController::class, 'search'])->name('.search');
-        Route::post('info', [App\Http\Controllers\Transporter\LocationController::class, 'info'])->name('.info');
-        Route::post('save', [App\Http\Controllers\Transporter\LocationController::class, 'save'])->name('.save');
-        Route::post('delete', [App\Http\Controllers\Transporter\LocationController::class, 'delete'])->name('.delete');
-    });
-
     Route::prefix('drivers')->name('.drivers')->group(function () {
         Route::get('/', [App\Http\Controllers\Transporter\DriverController::class, 'index']);
         Route::post('search', [App\Http\Controllers\Transporter\DriverController::class, 'search'])->name('.search');
@@ -116,29 +113,79 @@ Route::prefix('transporter')->name('transporter')->group(function () {
         Route::post('delete', [App\Http\Controllers\Transporter\DriverController::class, 'delete'])->name('.delete');
     });
 
+    Route::prefix('delivery_orders')->name('.delivery_orders')->group(function () {
+        Route::get('/', [App\Http\Controllers\Transporter\DeliveryOrderController::class, 'index']);
+        Route::post('search', [App\Http\Controllers\Transporter\DeliveryOrderController::class, 'search'])->name('.search');
+        Route::post('save', [App\Http\Controllers\Transporter\DeliveryOrderController::class, 'save'])->name('.save');
+        Route::post('info', [App\Http\Controllers\Transporter\DeliveryOrderController::class, 'info'])->name('.info');
+    });
+
 });
 
-Route::prefix('delivery_orders')->group(function () {
-    Route::get('/', [DeliveryOrderController::class, 'index'])->name('delivery_orders');
-    Route::post('search', [DeliveryOrderController::class, 'search'])->name('delivery_orders.search');
-    Route::post('info', [DeliveryOrderController::class, 'info'])->name('delivery_orders.info');
-    Route::post('save', [DeliveryOrderController::class, 'save'])->name('delivery_orders.save');
-    Route::post('delete', [DeliveryOrderController::class, 'delete'])->name('delivery_orders.delete');
+Route::prefix('consignee')->name('consignee')->group(function () {
+
+    Route::get('/', [App\Http\Controllers\Consignee\HomeController::class, 'index']);
+
+    Route::prefix('locations')->name('.locations')->group(function () {
+        Route::get('/', [App\Http\Controllers\Consignee\LocationController::class, 'index']);
+        Route::post('search', [App\Http\Controllers\Consignee\LocationController::class, 'search'])->name('.search');
+        Route::post('info', [App\Http\Controllers\Consignee\LocationController::class, 'info'])->name('.info');
+        Route::post('save', [App\Http\Controllers\Consignee\LocationController::class, 'save'])->name('.save');
+        Route::post('delete', [App\Http\Controllers\Consignee\LocationController::class, 'delete'])->name('.delete');
+    });
+
 });
 
-// roles
-// features
-// users
-// credentials
-// user_roles
-// user_profiles
-// locations
-// drivers
-// shipment_orders
-// shipment_order_items
-// shipment_invoices
-// delivery_order_items
-// delivery_invoices
-// delivery_order_drivers
-// vehicle_locations
-// drivers_location
+Route::prefix('shipper')->name('shipper')->group(function () {
+
+    Route::get('/', [App\Http\Controllers\Shipper\HomeController::class, 'index']);
+
+    Route::prefix('locations')->name('.locations')->group(function () {
+        Route::get('/', [App\Http\Controllers\Shipper\LocationController::class, 'index']);
+        Route::post('search', [App\Http\Controllers\Shipper\LocationController::class, 'search'])->name('.search');
+        Route::post('info', [App\Http\Controllers\Shipper\LocationController::class, 'info'])->name('.info');
+        Route::post('save', [App\Http\Controllers\Shipper\LocationController::class, 'save'])->name('.save');
+        Route::post('delete', [App\Http\Controllers\Shipper\LocationController::class, 'delete'])->name('.delete');
+    });
+
+    Route::prefix('shipment_orders')->name('.shipment_orders')->group(function () {
+        Route::get('/', [App\Http\Controllers\Shipper\ShipmentOrderController::class, 'index']);
+        Route::post('search', [App\Http\Controllers\Shipper\ShipmentOrderController::class, 'search'])->name('.search');
+        Route::post('info', [App\Http\Controllers\Shipper\ShipmentOrderController::class, 'info'])->name('.info');
+        Route::post('save', [App\Http\Controllers\Shipper\ShipmentOrderController::class, 'save'])->name('.save');
+        Route::post('delete', [App\Http\Controllers\Shipper\ShipmentOrderController::class, 'delete'])->name('.delete');
+
+        Route::prefix('items')->name('.items')->group(function () {
+            Route::post('info', [App\Http\Controllers\Shipper\ShipmentOrderItemController::class, 'info'])->name('.info');
+            Route::post('search', [App\Http\Controllers\Shipper\ShipmentOrderItemController::class, 'search'])->name('.search');
+            Route::post('save', [App\Http\Controllers\Shipper\ShipmentOrderItemController::class, 'save'])->name('.save');
+            Route::post('delete', [App\Http\Controllers\Shipper\ShipmentOrderItemController::class, 'delete'])->name('.delete');
+        });
+    });
+
+    Route::prefix('delivery_orders')->name('.delivery_orders')->group(function () {
+        Route::get('/', [App\Http\Controllers\Shipper\DeliveryOrderController::class, 'index']);
+        Route::post('info', [App\Http\Controllers\Shipper\DeliveryOrderController::class, 'info'])->name('.info');
+        Route::post('search', [App\Http\Controllers\Shipper\DeliveryOrderController::class, 'search'])->name('.search');
+        Route::post('save', [App\Http\Controllers\Shipper\DeliveryOrderController::class, 'save'])->name('.save');
+        Route::post('delete', [App\Http\Controllers\Shipper\DeliveryOrderController::class, 'delete'])->name('.delete');
+    });
+
+    Route::prefix('customers')->name('.customers')->group(function () {
+        Route::get('/', [App\Http\Controllers\Shipper\CustomerController::class, 'index']);
+        Route::post('search', [App\Http\Controllers\Shipper\CustomerController::class, 'search'])->name('.search');
+        Route::post('info', [App\Http\Controllers\Shipper\CustomerController::class, 'info'])->name('.info');
+        Route::post('save', [App\Http\Controllers\Shipper\CustomerController::class, 'save'])->name('.save');
+        Route::post('delete', [App\Http\Controllers\Shipper\CustomerController::class, 'delete'])->name('.delete');
+
+        Route::prefix('{customer_id}/locations')->name('.locations')->group(function () {
+            Route::get('/', [App\Http\Controllers\Shipper\CustomerLocationController::class, 'index']);
+            Route::post('search', [App\Http\Controllers\Shipper\CustomerLocationController::class, 'search'])->name('.search');
+            Route::post('info', [App\Http\Controllers\Shipper\CustomerLocationController::class, 'info'])->name('.info');
+            Route::post('save', [App\Http\Controllers\Shipper\CustomerLocationController::class, 'save'])->name('.save');
+            Route::post('delete', [App\Http\Controllers\Shipper\CustomerLocationController::class, 'delete'])->name('.delete');
+        });
+
+    });
+
+});

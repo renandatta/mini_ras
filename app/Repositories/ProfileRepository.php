@@ -52,4 +52,12 @@ class ProfileRepository extends Repository {
         return $profile;
     }
 
+    public function dropdown()
+    {
+        $result = array();
+        foreach ($this->profile->get() as $value)
+            $result[$value->id] = $value->name;
+        return $result;
+    }
+
 }

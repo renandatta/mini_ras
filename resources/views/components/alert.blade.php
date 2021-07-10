@@ -2,14 +2,10 @@
     class="alert {{ $type == 'error' ? 'alert-danger' : 'alert-success' }} alert-dismissible fade show"
     role="alert"
     id="{{ $id }}"
-    style="display: none;"
+    @if($display == false) style="display: none;" @endif
     {{ $attributes }}>
-    <div id="{{ $id }}_content"></div>
-    <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close">
+    <div id="{{ $id }}_content">{{ $slot }}</div>
+    <button type="button" class="close" onclick="toggle_alert('{{ $id }}')">
         <span aria-hidden="true">×</span>
     </button>
 </div>
