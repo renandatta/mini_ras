@@ -21,7 +21,8 @@ class CreateDeliveryOrderItemsTable extends Migration
             $table->string('unit')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
-            $table->foreign('delivery_order_id')->references('id')->on('delivery_orders');
+            $table->foreign('delivery_order_id')->references('id')->on('delivery_orders')
+                ->onDelete('cascade');
         });
     }
 

@@ -6,32 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class DeliveryOrder extends Model
 {
+    const STATUS = array(
+        'Ready to Ship', 'In Transit', 'Arrive at Destination', 'Unloading Completed', 'Closed'
+    );
     protected $fillable = [
         'shipment_order_id',
         'transporter_id',
-        'vehicle_id',
         'no_order',
         'date',
-        'date_eta',
-        'date_pickup',
-        'time_pickup',
-        'date_loading',
-        'time_loading',
-        'note_loading',
-        'date_arrive',
-        'time_arrive',
-        'note_arrive',
-        'pickup_location_id',
-        'deliver_location_id',
-        'status',
         'description',
-        'name',
-        'qty',
-        'unit',
-        'date_unloading',
-        'time_unloading',
-        'note_unloading',
-        'finish_attachment',
+        'is_confirmed'
     ];
 
     public function shipment_order()
@@ -44,18 +28,34 @@ class DeliveryOrder extends Model
         return $this->belongsTo(Profile::class, 'transporter_id', 'id');
     }
 
-    public function vehicle()
+    public function items()
     {
-        return $this->belongsTo(Vehicle::class);
+        return $this->hasMany(DeliveryOrderItem::class);
     }
 
-    public function pickup_location()
+    public function locations()
     {
-        return $this->belongsTo(Location::class, 'pickup_location_id', 'id');
+        return $this->hasMany(DeliveryOrderLocation::class);
     }
 
-    public function deliver_location()
+    public function location()
     {
-        return $this->belongsTo(CustomerLocation::class, 'deliver_location_id', 'id');
+        return $this->hasOne(DeliveryOrderLocation::class);
     }
+
+    public function current_location()
+    {
+        return $this->hasOne(DeliveryOrderLocation::class)
+            ->where('status', '<>', 'Closed')
+            ->orderBy('no_order');
+    }
+
+    public function getStatusAttribute()
+    {
+        if ($this->is_confirmed !== 1) {
+            if ($this->is_confirmed === null) return "Waiting Confirmation";
+            else return "Transporter Rejected";
+        } else return $this->current_location->status_caption ?? '-';
+    }
+
 }

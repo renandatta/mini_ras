@@ -79,7 +79,7 @@ class DeliveryOrderRepository extends Repository {
     public function save(Request $request)
     {
         $request = $this->clean_date($request, [
-            'date', 'date_eta', 'date_pickup', 'date_arrive', 'date_loading', 'date_unloading'
+            'date', 'date_eta', 'pickup_date', 'loading_date', 'arrive_date', 'unloading_date'
         ]);
         $id = $request->input('id') ?? '';
         return $id == '' ? $this->store($request) : $this->update($request, $id);
@@ -95,12 +95,23 @@ class DeliveryOrderRepository extends Repository {
     public function auto_no($profile_id)
     {
         $last = $this->deliveryOrder
-//            ->where('transporter_id', $profile_id)
+            ->whereHas('shipment_order', function ($shipment) use ($profile_id) {
+                $shipment->where('shipper_id', $profile_id);
+            })
             ->orderBy('no_order', 'desc')
             ->first();
-        $no = !empty($last) ? $last->no_order + 1 : 1;
+        $no = !empty($last) ? last(explode('/', $last->no_order)) + 1 : 1;
         for ($i = 1; strlen($no) <= 6; $i++) $no = '0' . $no;
-        return $no;
+        return join('/', [
+            'DO', date('Y'), numberToRoman(date('n')), $no
+        ]);
+    }
+
+    public function list_status()
+    {
+        $result = array();
+        foreach (ShipmentOrder::STATUS as $value) $result[$value] = $value;
+        return $result;
     }
 
     public function update_status($id, $status)

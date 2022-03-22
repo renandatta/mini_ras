@@ -3,12 +3,12 @@
     @csrf
     <x-input type="hidden" name="id" :value="$shipment_order->id ?? ''" />
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <x-form-group caption="No.PO">
                 <x-input name="no_order" :value="$no_order ?? ''" />
             </x-form-group>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-7">
         </div>
         <div class="col-md-2 text-right">
             <x-form-group caption="Date">

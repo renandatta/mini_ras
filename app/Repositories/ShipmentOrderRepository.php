@@ -78,9 +78,11 @@ class ShipmentOrderRepository extends Repository {
             ->where('shipper_id', $profile_id)
             ->orderBy('no_order', 'desc')
             ->first();
-        $no = !empty($last) ? $last->no_order + 1 : 1;
+        $no = !empty($last) ? last(explode('/', $last->no_order)) + 1 : 1;
         for ($i = 1; strlen($no) <= 6; $i++) $no = '0' . $no;
-        return $no;
+        return join('/', [
+            'PO', date('Y'), numberToRoman(date('n')), $no
+        ]);
     }
 
     public function list_status()

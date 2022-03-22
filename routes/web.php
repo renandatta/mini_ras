@@ -169,6 +169,14 @@ Route::prefix('shipper')->name('shipper')->group(function () {
         Route::post('search', [App\Http\Controllers\Shipper\DeliveryOrderController::class, 'search'])->name('.search');
         Route::post('save', [App\Http\Controllers\Shipper\DeliveryOrderController::class, 'save'])->name('.save');
         Route::post('delete', [App\Http\Controllers\Shipper\DeliveryOrderController::class, 'delete'])->name('.delete');
+
+        Route::prefix('items')->name('.items')->group(function () {
+            Route::post('search', [App\Http\Controllers\Shipper\DeliveryOrderItemController::class, 'search'])->name('.search');
+        });
+
+        Route::prefix('timelines')->name('.timelines')->group(function () {
+            Route::post('search', [App\Http\Controllers\Shipper\DeliveryOrderTimelineController::class, 'search'])->name('.search');
+        });
     });
 
     Route::prefix('customers')->name('.customers')->group(function () {

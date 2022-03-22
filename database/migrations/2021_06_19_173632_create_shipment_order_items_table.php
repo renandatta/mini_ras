@@ -21,7 +21,8 @@ class CreateShipmentOrderItemsTable extends Migration
             $table->string('unit')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
-            $table->foreign('shipment_order_id')->references('id')->on('shipment_orders');
+            $table->foreign('shipment_order_id')->references('id')->on('shipment_orders')
+                ->onDelete('cascade');
         });
     }
 

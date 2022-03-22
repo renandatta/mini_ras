@@ -26,6 +26,9 @@
 .btn-col {
     height: calc(1.5em + .75rem + 2px) !important;
 }
+.border-radius-0 {
+    border-radius: 0!important;
+}
 .select2-container {
     width: 100%!important;
 }
@@ -102,4 +105,23 @@
     .container, .page-wrapper .page-content, .container-sm, .container-md, .container-lg, .container-xl {
         max-width: 1300px;
     }
+}
+.timeline {
+    background-color: #fff;
+    min-width: 90%;
+    padding: 0 0 0 10px;
+}
+.timeline .event {
+    margin-bottom: 0;
+    padding: 10px 20px;
+    border-bottom: none;
+}
+.timeline .event:after {
+    left: -17.3px;
+    height: 12px;
+    width: 12px;
+    top: 10px;
+}
+.timeline .event.active:after {
+    background-color: #727cf5;
 }
